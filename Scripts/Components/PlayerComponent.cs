@@ -56,7 +56,7 @@ namespace wovencode {
 		protected override void UpdateServer()
 		{
 			base.UpdateServer();
-			this.InvokeInstanceDevExtMethods("UpdateServer");
+			this.InvokeInstanceDevExtMethods(nameof(UpdateServer));
 		}
 		
 		// -------------------------------------------------------------------------------
@@ -66,7 +66,7 @@ namespace wovencode {
 		protected override void UpdateClient()
 		{
 			base.UpdateClient();
-			this.InvokeInstanceDevExtMethods("UpdateClient");
+			this.InvokeInstanceDevExtMethods(nameof(UpdateClient));
 		}
 		
 		// -------------------------------------------------------------------------------
