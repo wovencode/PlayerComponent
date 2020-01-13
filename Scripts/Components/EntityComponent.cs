@@ -15,16 +15,12 @@ using wovencode;
 namespace wovencode {
 	
 	// ===================================================================================
-	// PlayerComponent
+	// EntityComponent
 	// ===================================================================================
-	[DisallowMultipleComponent]
 	[System.Serializable]
-	public partial class PlayerComponent : EntityComponent
+	public abstract partial class EntityComponent : UpgradableComponent
 	{
 	
-    	
-    	[HideInInspector] public string username;
-    	
 		// -------------------------------------------------------------------------------
 		// 
 		// -------------------------------------------------------------------------------
@@ -34,28 +30,11 @@ namespace wovencode {
 		}
 		
 		// -------------------------------------------------------------------------------
-		// 
-		// -------------------------------------------------------------------------------
-		public override void OnStartLocalPlayer()
-    	{
-        	
-		}
-		
-		// -------------------------------------------------------------------------------
-		// 
-		// -------------------------------------------------------------------------------
-		void OnDestroy()
-    	{
-    	
-        }
-		
-		// -------------------------------------------------------------------------------
 		// UpdateServer
 		// -------------------------------------------------------------------------------
 		[Server]
 		protected override void UpdateServer()
 		{
-			base.UpdateServer();
 			this.InvokeInstanceDevExtMethods("UpdateServer");
 		}
 		
@@ -65,7 +44,6 @@ namespace wovencode {
 		[Client]
 		protected override void UpdateClient()
 		{
-			base.UpdateClient();
 			this.InvokeInstanceDevExtMethods("UpdateClient");
 		}
 		

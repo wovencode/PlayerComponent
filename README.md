@@ -1,4 +1,4 @@
-Syncable Player (Wovencore)
+PlayerComponent (Wovencore)
 ==========================================================================================
 by Fhiz (Weaver)
 MIT licensed

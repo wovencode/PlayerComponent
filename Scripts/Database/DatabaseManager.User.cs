@@ -24,111 +24,134 @@ namespace wovencode
 		// ============================= PRIVATE METHODS =================================
 		
 		// -------------------------------------------------------------------------------
-		// Init_Player
+		// Init_User
 		// -------------------------------------------------------------------------------
 		[DevExtMethods("Init")]
-		void Init_Player()
+		void Init_User()
 		{
-	   		CreateTable<TablePlayer>();
+	   		CreateTable<TableUser>();
 		}
 		
 	   	// -------------------------------------------------------------------------------
-	   	// CreateDefaultData_Player
+	   	// CreateDefaultData_User
 	   	// -------------------------------------------------------------------------------
 	   	[DevExtMethods("CreateDefaultData")]
-		void CreateDefaultData_Player(GameObject player)
+		void CreateDefaultData_User(GameObject player)
 		{
-			
+			/*
+				users have no default data, feel free to add your own
+				
+				instead, user data is saved/loaded as part of the register/login process
+			*/
 		}
 		
 		// -------------------------------------------------------------------------------
-		// LoadDataWithPriority_Player
+		// LoadDataWithPriority_User
 		// -------------------------------------------------------------------------------
 		[DevExtMethods("LoadDataWithPriority")]
-		void LoadDataWithPriority_Player(GameObject player)
+		void LoadDataWithPriority_User(GameObject player)
 		{
-			
+			/*
+				users do not load priority data, feel free to add your own
+				
+				instead, user data is saved/loaded as part of the register/login process
+			*/
 		}
 		
 	   	// -------------------------------------------------------------------------------
-	   	// LoadData_Player
+	   	// LoadData_User
 	   	// -------------------------------------------------------------------------------
 		[DevExtMethods("LoadData")]
-		void LoadData_Player(GameObject player)
+		void LoadData_User(GameObject player)
 		{
-	   		
+	   		/*
+				users do not load any data, feel free to add your own
+				
+				instead, user data is saved/loaded as part of the register/login process
+			*/
 		}
 		
 	   	// -------------------------------------------------------------------------------
-	   	// SaveData_Player
+	   	// SaveData_User
 	   	// -------------------------------------------------------------------------------
 		[DevExtMethods("SaveData")]
-		void SaveData_Player(GameObject player)
+		void SaveData_User(GameObject player)
 		{
 			PlayerComponent playerComponent = player.GetComponent<PlayerComponent>();
-	   		Execute("UPDATE TablePlayer SET lastsaved=? WHERE name=?", DateTime.UtcNow, playerComponent.username);
+	   		Execute("UPDATE TableUser SET lastsaved=? WHERE name=?", DateTime.UtcNow, playerComponent.username);
 		}
 		
 		// -------------------------------------------------------------------------------
-	   	// DeleteData_Player
+	   	// UserDelete_User
+	   	// Note: This one is not called "DeleteData" because its the user, not a player
 	   	// -------------------------------------------------------------------------------
-	   	[DevExtMethods("DeleteData")]
-	   	void DeleteData_Player(string _name)
+	   	[DevExtMethods("UserDelete")]
+	   	void UserDelete_User(string _name)
 	   	{
-	   		Execute("DELETE FROM TablePlayer WHERE name=?", _name);
+	   		Execute("DELETE FROM TableUser WHERE name=?", _name);
 	   	}
 		
 		// ============================ PROTECTED METHODS ================================
 		
 		// -------------------------------------------------------------------------------
-		// TryHardDeletePlayer
-		// Permanently deletes the player and all of its data
+		// TryHardDeleteUser
+		// Permanently deletes the user and all of its data (including players)
 		// -------------------------------------------------------------------------------
-		protected bool TryHardDeletePlayer(string _name, string _password)
+		protected bool TryHardDeleteUser(string _name, string _password)
 		{
 		
-			if (!Tools.IsAllowedName(_name) || !Tools.IsAllowedPassword(_password) || !PlayerExists(_name))
+			if (!Tools.IsAllowedName(_name) || !Tools.IsAllowedPassword(_password) || !UserExists(_name))
 				return false;
 			
-			PlayerDelete(_name);
+			UserDelete(_name);
 			return true;	
 				
 		}
 		
 		// -------------------------------------------------------------------------------
-		// PlayerSetOnline
-		// Sets the player online (1) or offline (0) and updates last login time
+		// UserSetOnline
+		// Sets the user online (1) or offline (0) and updates last login time
 		// -------------------------------------------------------------------------------
-		protected void PlayerSetOnline(string _name, int _action=1)
+		protected void UserSetOnline(string _name, int _action=1)
 		{
-			Execute("UPDATE TablePlayer SET online=?, lastlogin=? WHERE name=?", _action, DateTime.UtcNow, _name);
+			Execute("UPDATE TableUser SET online=?, lastlogin=? WHERE name=?", _action, DateTime.UtcNow, _name);
 		}
 		
 		// -------------------------------------------------------------------------------
-		// PlayerSetDeleted
-		// Sets the player to deleted (1) or undeletes it (0)
+		// UserSetDeleted
+		// Sets the user to deleted (1) or undeletes it (0)
 		// -------------------------------------------------------------------------------
-		protected void PlayerSetDeleted(string _name, int _action=1)
+		protected void UserSetDeleted(string _name, int _action=1)
 		{
-			Execute("UPDATE TablePlayer SET deleted=? WHERE name=?", _action, _name);
+			Execute("UPDATE TableUser SET deleted=? WHERE name=?", _action, _name);
 		}
 		
 		// -------------------------------------------------------------------------------
-		// PlayerSetBanned
+		// UserSetBanned
 		// Bans (1) or unbans (0) the user
 		// -------------------------------------------------------------------------------
-		protected void PlayerSetBanned(string _name, int _action=1)
+		protected void UserSetBanned(string _name, int _action=1)
 		{
-			Execute("UPDATE TablePlayer SET banned=? WHERE name=?", _action, _name);
+			Execute("UPDATE TableUser SET banned=? WHERE name=?", _action, _name);
 		}
 		
 		// -------------------------------------------------------------------------------
-		// PlayerDelete
-		// Permanently deletes the player and all of its data (hard delete)
+		// UserDelete
+		// Permanently deletes the user and all of its data (hard delete)
 		// -------------------------------------------------------------------------------
-		protected void PlayerDelete(string _name)
+		protected void UserDelete(string _name)
 		{			
 			this.InvokeInstanceDevExtMethods("DeleteData", _name);
+			this.InvokeInstanceDevExtMethods(nameof(UserDelete), _name);
+		}
+		
+		// -------------------------------------------------------------------------------
+		// UserSetConfirmed
+		// Sets the user to confirmed (1) or unconfirms it (0)
+		// -------------------------------------------------------------------------------
+		protected void UserSetConfirmed(string _name, int _action=1)
+		{
+			Execute("UPDATE TableUser SET confirmed=? WHERE name=?", _action, _name);
 		}
 		
 		// -------------------------------------------------------------------------------
