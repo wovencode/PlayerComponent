@@ -1,5 +1,5 @@
 ﻿// =======================================================================================
-// PlayerManager
+// Wovencore
 // by Weaver (Fhiz)
 // MIT licensed
 //
@@ -16,11 +16,11 @@ using wovencode;
 namespace wovencode {
 	
 	// ===================================================================================
-	// PlayerManager
+	// PlayerComponent
 	// ===================================================================================
 	[DisallowMultipleComponent]
 	[System.Serializable]
-	public partial class PlayerManager : UpgradableManager
+	public partial class PlayerComponent : UpgradableComponent
 	{
 	
     	

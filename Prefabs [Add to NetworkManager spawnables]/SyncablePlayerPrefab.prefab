@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5614386606105141322}
   - component: {fileID: 7473898253303316660}
-  - component: {fileID: 3458107595931763541}
+  - component: {fileID: 1043116825713253742}
   m_Layer: 0
   m_Name: SyncablePlayerPrefab
   m_TagString: Untagged
@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serverOnly: 0
-  m_AssetId: 
-  m_SceneId: 347587113
---- !u!114 &3458107595931763541
+  m_AssetId: fd7eb4b6732ce43fa925f4063c3c1cd1
+  m_SceneId: 0
+--- !u!114 &1043116825713253742
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,9 +59,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d351cbb1a6c64c18a401231fd6948ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 1
+  syncMode: 0
   syncInterval: 0.1
-  refreshInterval: 1
+  managerUpdateInterval: 1
+  cacheUpdateInterval: 1
   level: 1
   maxLevel: 3
   capacity:
