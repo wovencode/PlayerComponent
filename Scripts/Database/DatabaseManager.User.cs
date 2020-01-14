@@ -72,25 +72,42 @@ namespace wovencode
 		}
 		
 	   	// -------------------------------------------------------------------------------
-	   	// SaveData_User
+	   	// SaveDataUser_User
 	   	// -------------------------------------------------------------------------------
-		[DevExtMethods("SaveData")]
-		void SaveData_User(GameObject player)
+		[DevExtMethods("SaveDataUser")]
+		void SaveDataUser_User(string username, bool isOnline)
 		{
-			PlayerComponent playerComponent = player.GetComponent<PlayerComponent>();
-	   		Execute("UPDATE TableUser SET lastsaved=? WHERE name=?", DateTime.UtcNow, playerComponent.username);
+	   		Execute("UPDATE TableUser SET lastsaved=?, online=? WHERE name=?", DateTime.UtcNow, (isOnline) ? 1 : 0, username);
 		}
+		
+		// -------------------------------------------------------------------------------
+	   	// LoginUser_User
+	   	// -------------------------------------------------------------------------------
+	   	[DevExtMethods("LoginUser")]
+	   	void LoginUser_User(string username)
+	   	{
+	   		UserSetOnline(username, 1);
+	   	}
+		
+		// -------------------------------------------------------------------------------
+	   	// LogoutUser_User
+	   	// -------------------------------------------------------------------------------
+	   	[DevExtMethods("LogoutUser")]
+	   	void LogoutUser_User(string username)
+	   	{
+	   		UserSetOnline(username, 0);
+	   	}
 		
 		// -------------------------------------------------------------------------------
 	   	// UserDelete_User
 	   	// Note: This one is not called "DeleteData" because its the user, not a player
 	   	// -------------------------------------------------------------------------------
 	   	[DevExtMethods("UserDelete")]
-	   	void UserDelete_User(string _name)
+	   	void UserDelete_User(string name)
 	   	{
-	   		Execute("DELETE FROM TableUser WHERE name=?", _name);
+	   		Execute("DELETE FROM TableUser WHERE name=?", name);
 	   	}
-		
+	   	
 		// ============================ PROTECTED METHODS ================================
 		
 		// -------------------------------------------------------------------------------

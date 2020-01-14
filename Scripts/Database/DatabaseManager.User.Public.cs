@@ -30,7 +30,6 @@ namespace wovencode
 			if (!base.TryLoginUser(name, password) || !UserValid(name, password))
 				return false;
 			
-			UserSetOnline(name);
 			return true;
 			
 		}

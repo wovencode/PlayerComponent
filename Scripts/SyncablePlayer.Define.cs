@@ -19,7 +19,7 @@ namespace wovencode
 		[DevExtMethods("Constructor")]
 		public static void Constructor_Player()
 		{
-			EditorTools.AddScriptingDefine("WOCO_PLAYER");
+			EditorTools.AddScriptingDefine("wPLAYER");
 		}
 
 	}
