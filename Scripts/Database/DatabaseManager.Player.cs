@@ -65,17 +65,16 @@ namespace wovencode
 		[DevExtMethods("SaveData")]
 		void SaveData_Player(GameObject player)
 		{
-			PlayerComponent playerComponent = player.GetComponent<PlayerComponent>();
-	   		Execute("UPDATE TablePlayer SET lastsaved=? WHERE name=?", DateTime.UtcNow, playerComponent.username);
+	   		Execute("UPDATE TablePlayer SET lastsaved=? WHERE name=?", DateTime.UtcNow, player.name);
 		}
 		
 		// -------------------------------------------------------------------------------
 	   	// DeleteData_Player
 	   	// -------------------------------------------------------------------------------
 	   	[DevExtMethods("DeleteData")]
-	   	void DeleteData_Player(string _name)
+	   	void DeleteData_Player(string name)
 	   	{
-	   		Execute("DELETE FROM TablePlayer WHERE name=?", _name);
+	   		Execute("DELETE FROM TablePlayer WHERE name=?", name);
 	   	}
 		
 		// ============================ PROTECTED METHODS ================================
