@@ -59,46 +59,46 @@ namespace wovencode
 		// UserSetOnline
 		// Sets the user online (1) or offline (0) and updates last login time
 		// -------------------------------------------------------------------------------
-		protected void UserSetOnline(string _name, int _action=1)
+		protected void UserSetOnline(string name, int action=1)
 		{
-			Execute("UPDATE TableUser SET online=?, lastlogin=? WHERE name=?", _action, DateTime.UtcNow, _name);
+			Execute("UPDATE TableUser SET online=?, lastlogin=? WHERE name=?", action, DateTime.UtcNow, name);
 		}
 		
 		// -------------------------------------------------------------------------------
 		// UserSetDeleted
 		// Sets the user to deleted (1) or undeletes it (0)
 		// -------------------------------------------------------------------------------
-		protected void UserSetDeleted(string _name, int _action=1)
+		protected void UserSetDeleted(string name, int action=1)
 		{
-			Execute("UPDATE TableUser SET deleted=? WHERE name=?", _action, _name);
+			Execute("UPDATE TableUser SET deleted=? WHERE name=?", action, name);
 		}
 		
 		// -------------------------------------------------------------------------------
 		// UserSetBanned
 		// Bans (1) or unbans (0) the user
 		// -------------------------------------------------------------------------------
-		protected void UserSetBanned(string _name, int _action=1)
+		protected void UserSetBanned(string name, int action=1)
 		{
-			Execute("UPDATE TableUser SET banned=? WHERE name=?", _action, _name);
+			Execute("UPDATE TableUser SET banned=? WHERE name=?", action, name);
 		}
 		
 		// -------------------------------------------------------------------------------
 		// UserDelete
 		// Permanently deletes the user and all of its data (hard delete)
 		// -------------------------------------------------------------------------------
-		protected void UserDelete(string _name)
+		protected void UserDelete(string name)
 		{			
-			this.InvokeInstanceDevExtMethods("DeleteData", _name);
-			this.InvokeInstanceDevExtMethods(nameof(UserDelete), _name);
+			this.InvokeInstanceDevExtMethods("DeleteData", name);
+			this.InvokeInstanceDevExtMethods(nameof(UserDelete), name);
 		}
 		
 		// -------------------------------------------------------------------------------
 		// UserSetConfirmed
 		// Sets the user to confirmed (1) or unconfirms it (0)
 		// -------------------------------------------------------------------------------
-		protected void UserSetConfirmed(string _name, int _action=1)
+		protected void UserSetConfirmed(string name, int action=1)
 		{
-			Execute("UPDATE TableUser SET confirmed=? WHERE name=?", _action, _name);
+			Execute("UPDATE TableUser SET confirmed=? WHERE name=?", action, name);
 		}
 		
 		// -------------------------------------------------------------------------------
