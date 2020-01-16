@@ -22,26 +22,26 @@ namespace wovencode
 		// ============================== PUBLIC METHODS =================================
 		
 		// -------------------------------------------------------------------------------
-		// TryLoginPlayer
+		// 
 		// -------------------------------------------------------------------------------
-		public override bool TryLoginPlayer(string name, string username)
+		public override bool TryPlayerLogin(string name, string username)
 		{
 			
-			if (!base.TryLoginPlayer(name, username) || !UserValid(name, username))
+			if (!base.TryPlayerLogin(name, username) || !UserValid(name, username))
 				return false;
 			
-			PlayerSetOnline(name);
+			LoginPlayer(name);
 			return true;
 			
 		}
 		
 		// -------------------------------------------------------------------------------
-		// TryRegisterPlayer
+		// 
 		// -------------------------------------------------------------------------------
-		public override bool TryRegisterPlayer(string name, string username)
+		public override bool TryPlayerRegister(string name, string username)
 		{
 		
-			if (!base.TryRegisterPlayer(name, username) || UserExists(name))
+			if (!base.TryPlayerRegister(name, username) || UserExists(name))
 				return false;
 			
 			// -- check if maximum amount of characters per account reached
@@ -50,18 +50,18 @@ namespace wovencode
 				return false;
 #endif
 
-			PlayerCreate(name, username);
+			PlayerRegister(name, username);
 			return true;
 			
 		}
 		
 		// -------------------------------------------------------------------------------
-		// TrySoftDeletePlayer
+		// 
 		// -------------------------------------------------------------------------------
-		public override bool TrySoftDeletePlayer(string name, string username, int _action=1)
+		public override bool TryPlayerDeleteSoft(string name, string username, int _action=1)
 		{
 		
-			if (!base.TrySoftDeletePlayer(name, username) || !UserValid(name, username))
+			if (!base.TryPlayerDeleteSoft(name, username) || !UserValid(name, username))
 				return false;
 				
 			PlayerSetDeleted(name, _action);
@@ -70,49 +70,32 @@ namespace wovencode
 		}
 		
 		// -------------------------------------------------------------------------------
-		// TryBanPlayer
+		// 
+		// Permanently deletes the player and all of its data
 		// -------------------------------------------------------------------------------
-		public override bool TryBanPlayer(string name, string username, int _action=1)
+		public override bool TryPlayerDeleteHard(string _name)
+		{
+		
+			if (!base.TryPlayerDeleteHard(_name) || !PlayerExists(_name))
+				return false;
+			
+			PlayerDelete(_name);
+			return true;	
+				
+		}
+		
+		// -------------------------------------------------------------------------------
+		// 
+		// -------------------------------------------------------------------------------
+		public override bool TryPlayerBan(string name, string username, int _action=1)
 		{
 			
-			if (!base.TryBanUser(name, username) || !UserValid(name, username))
+			if (!base.TryPlayerBan(name, username) || !UserValid(name, username))
 				return false;
 				
 			PlayerSetBanned(name, _action);
 			return true;	
 			
-		}
-		
-		// -------------------------------------------------------------------------------
-		// GetPlayerCount
-		// -------------------------------------------------------------------------------
-		public int GetPlayerCount(string username)
-		{
-			return Query<TablePlayer>("SELECT * FROM TablePlayer WHERE username=? AND deleted=0", username).Count;
-		}
-		
-		// -------------------------------------------------------------------------------
-		// PlayerCreate
-		// -------------------------------------------------------------------------------
-		public void PlayerCreate(string name, string username)
-		{
-			Insert(new TablePlayer{ name=name, username=username, created=DateTime.UtcNow, lastlogin=DateTime.Now, banned=false});
-		}
-		
-		// -------------------------------------------------------------------------------
-		// PlayerValid
-		// -------------------------------------------------------------------------------
-		public bool PlayerValid(string name, string username)
-		{
-			return FindWithQuery<TablePlayer>("SELECT * FROM TablePlayer WHERE name=? AND username=? AND banned=0 AND deleted=0", name, username) != null;
-		}
-		
-		// -------------------------------------------------------------------------------
-		// PlayerExists
-		// -------------------------------------------------------------------------------
-		public bool PlayerExists(string name)
-		{
-			return FindWithQuery<TablePlayer>("SELECT * FROM TablePlayer WHERE name=?", name) != null;
 		}
 		
 		// -------------------------------------------------------------------------------

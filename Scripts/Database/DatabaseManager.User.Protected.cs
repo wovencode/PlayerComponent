@@ -21,108 +21,38 @@ namespace wovencode
 	public partial class DatabaseManager
 	{
 		
-		// ============================= PRIVATE METHODS =================================
-		
-		// -------------------------------------------------------------------------------
-		// Init_User
-		// -------------------------------------------------------------------------------
-		[DevExtMethods("Init")]
-		void Init_User()
-		{
-	   		CreateTable<TableUser>();
-		}
-		
-	   	// -------------------------------------------------------------------------------
-	   	// CreateDefaultData_User
-	   	// -------------------------------------------------------------------------------
-	   	[DevExtMethods("CreateDefaultData")]
-		void CreateDefaultData_User(GameObject player)
-		{
-			/*
-				users have no default data, feel free to add your own
-				
-				instead, user data is saved/loaded as part of the register/login process
-			*/
-		}
-		
-		// -------------------------------------------------------------------------------
-		// LoadDataWithPriority_User
-		// -------------------------------------------------------------------------------
-		[DevExtMethods("LoadDataWithPriority")]
-		void LoadDataWithPriority_User(GameObject player)
-		{
-			/*
-				users do not load priority data, feel free to add your own
-				
-				instead, user data is saved/loaded as part of the register/login process
-			*/
-		}
-		
-	   	// -------------------------------------------------------------------------------
-	   	// LoadData_User
-	   	// -------------------------------------------------------------------------------
-		[DevExtMethods("LoadData")]
-		void LoadData_User(GameObject player)
-		{
-	   		/*
-				users do not load any data, feel free to add your own
-				
-				instead, user data is saved/loaded as part of the register/login process
-			*/
-		}
-		
-	   	// -------------------------------------------------------------------------------
-	   	// SaveDataUser_User
-	   	// -------------------------------------------------------------------------------
-		[DevExtMethods("SaveDataUser")]
-		void SaveDataUser_User(string username, bool isOnline)
-		{
-	   		Execute("UPDATE TableUser SET lastsaved=?, online=? WHERE name=?", DateTime.UtcNow, (isOnline) ? 1 : 0, username);
-		}
-		
-		// -------------------------------------------------------------------------------
-	   	// LoginUser_User
-	   	// -------------------------------------------------------------------------------
-	   	[DevExtMethods("LoginUser")]
-	   	void LoginUser_User(string username)
-	   	{
-	   		UserSetOnline(username, 1);
-	   	}
-		
-		// -------------------------------------------------------------------------------
-	   	// LogoutUser_User
-	   	// -------------------------------------------------------------------------------
-	   	[DevExtMethods("LogoutUser")]
-	   	void LogoutUser_User(string username)
-	   	{
-	   		UserSetOnline(username, 0);
-	   	}
-		
-		// -------------------------------------------------------------------------------
-	   	// UserDelete_User
-	   	// Note: This one is not called "DeleteData" because its the user, not a player
-	   	// -------------------------------------------------------------------------------
-	   	[DevExtMethods("UserDelete")]
-	   	void UserDelete_User(string name)
-	   	{
-	   		Execute("DELETE FROM TableUser WHERE name=?", name);
-	   	}
-	   	
 		// ============================ PROTECTED METHODS ================================
 		
 		// -------------------------------------------------------------------------------
-		// TryHardDeleteUser
-		// Permanently deletes the user and all of its data (including players)
+		// UserValid
 		// -------------------------------------------------------------------------------
-		protected bool TryHardDeleteUser(string _name, string _password)
+		protected bool UserValid(string name, string password)
 		{
+			return FindWithQuery<TableUser>("SELECT * FROM TableUser WHERE name=? AND password=? AND banned=0 AND deleted=0", name, password) != null;
+		}
 		
-			if (!Tools.IsAllowedName(_name) || !Tools.IsAllowedPassword(_password) || !UserExists(_name))
-				return false;
-			
-			UserDelete(_name);
-			return true;	
-				
+		// -------------------------------------------------------------------------------
+		// UserExists
+		// -------------------------------------------------------------------------------
+		protected bool UserExists(string name)
+		{
+			return FindWithQuery<TableUser>("SELECT * FROM TableUser WHERE name=?", name) != null;
+		}
+		
+		// -------------------------------------------------------------------------------
+		// UserRegister
+		// -------------------------------------------------------------------------------
+		protected void UserRegister(string name, string password)
+		{
+			Insert(new TableUser{ name=name, password=password, created=DateTime.UtcNow, lastlogin=DateTime.Now, banned=false});
+		}
+		
+		// -------------------------------------------------------------------------------
+		// UserChangePassword
+		// -------------------------------------------------------------------------------
+		protected void UserChangePassword(string name, string oldpassword, string newpassword)
+		{
+			Execute("UPDATE TableUser SET password=? WHERE name=? AND password=?", newpassword, name, oldpassword);
 		}
 		
 		// -------------------------------------------------------------------------------
@@ -169,6 +99,14 @@ namespace wovencode
 		protected void UserSetConfirmed(string _name, int _action=1)
 		{
 			Execute("UPDATE TableUser SET confirmed=? WHERE name=?", _action, _name);
+		}
+		
+		// -------------------------------------------------------------------------------
+		// GetPlayerCount
+		// -------------------------------------------------------------------------------
+		protected int GetPlayerCount(string username)
+		{
+			return Query<TablePlayer>("SELECT * FROM TablePlayer WHERE username=? AND deleted=0", username).Count;
 		}
 		
 		// -------------------------------------------------------------------------------

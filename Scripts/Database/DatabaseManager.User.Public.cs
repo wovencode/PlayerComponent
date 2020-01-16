@@ -22,39 +22,40 @@ namespace wovencode
 		// ============================== PUBLIC METHODS =================================
 		
 		// -------------------------------------------------------------------------------
-		// TryLoginUser
+		// 
 		// -------------------------------------------------------------------------------
-		public override bool TryLoginUser(string name, string password)
+		public override bool TryUserLogin(string name, string password)
 		{
 		
-			if (!base.TryLoginUser(name, password) || !UserValid(name, password))
+			if (!base.TryUserLogin(name, password) || !UserValid(name, password))
 				return false;
 			
+			LoginUser(name);
 			return true;
 			
 		}
 		
 		// -------------------------------------------------------------------------------
-		// TryRegisterUser
+		// 
 		// -------------------------------------------------------------------------------
-		public override bool TryRegisterUser(string name, string password)
+		public override bool TryUserRegister(string name, string password)
 		{
 		
-			if (!base.TryRegisterUser(name, password) || UserExists(name))
+			if (!base.TryUserRegister(name, password) || UserExists(name))
 				return false;
 			
-			UserCreate(name, password);
+			UserRegister(name, password);
 			return true;
 			
 		}
 		
 		// -------------------------------------------------------------------------------
-		// TrySoftDeleteUser
+		// 
 		// -------------------------------------------------------------------------------
-		public override bool TrySoftDeleteUser(string name, string password, int _action=1)
+		public override bool TryUserDelete(string name, string password, int _action=1)
 		{
 		
-			if (!base.TrySoftDeleteUser(name, password) || !UserValid(name, password))
+			if (!base.TryUserDelete(name, password) || !UserValid(name, password))
 				return false;
 				
 			UserSetDeleted(name, _action);
@@ -63,12 +64,12 @@ namespace wovencode
 		}
 		
 		// -------------------------------------------------------------------------------
-		// TryChangePasswordUser
+		// 
 		// -------------------------------------------------------------------------------
-		public override bool TryChangePasswordUser(string name, string oldpassword, string newpassword)
+		public override bool TryUserChangePassword(string name, string oldpassword, string newpassword)
 		{
 		
-			if (!base.TryChangePasswordUser(name, oldpassword, newpassword) || !UserValid(name, oldpassword))
+			if (!base.TryUserChangePassword(name, oldpassword, newpassword) || !UserValid(name, oldpassword))
 				return false;
 			
 			UserChangePassword(name, oldpassword, newpassword);
@@ -77,12 +78,12 @@ namespace wovencode
 		}
 		
 		// -------------------------------------------------------------------------------
-		// TryBanUser
+		// 
 		// -------------------------------------------------------------------------------
-		public override bool TryBanUser(string name, string password, int _action=1)
+		public override bool TryUserBan(string name, string password, int _action=1)
 		{
 			
-			if (!base.TryBanUser(name, password) || !UserValid(name, password))
+			if (!base.TryUserBan(name, password) || !UserValid(name, password))
 				return false;
 				
 			UserSetBanned(name, _action);
@@ -91,12 +92,12 @@ namespace wovencode
 		}
 		
 		// -------------------------------------------------------------------------------
-		// TryConfirmUser
+		// 
 		// -------------------------------------------------------------------------------
-		public override bool TryConfirmUser(string name, string password, int _action=1)
+		public override bool TryUserConfirm(string name, string password, int _action=1)
 		{
 		
-			if (!base.TryConfirmUser(name, password) || !UserValid(name, password))
+			if (!base.TryUserConfirm(name, password) || !UserValid(name, password))
 				return false;
 				
 			UserSetConfirmed(name, _action);
@@ -105,35 +106,38 @@ namespace wovencode
 		}
 		
 		// -------------------------------------------------------------------------------
-		// UserCreate
+		// 
 		// -------------------------------------------------------------------------------
-		public void UserCreate(string name, string password)
+		public override bool  TryUserGetValid(string name, string password)
 		{
-			Insert(new TableUser{ name=name, password=password, created=DateTime.UtcNow, lastlogin=DateTime.Now, banned=false});
+			if (!base.TryUserGetValid(name, password))
+				return false;
+		
+			return UserValid(name, password);
+			
 		}
 		
 		// -------------------------------------------------------------------------------
-		// UserChangePassword
+		// 
 		// -------------------------------------------------------------------------------
-		public void UserChangePassword(string name, string oldpassword, string newpassword)
+		public override bool  TryUserGetExists(string name)
 		{
-			Execute("UPDATE TableUser SET password=? WHERE name=? AND password=?", newpassword, name, oldpassword);
+			if (!base.TryUserGetExists(name))
+				return false;
+			
+			return UserExists(name);
+			
 		}
 		
 		// -------------------------------------------------------------------------------
-		// UserValid
+		// 
 		// -------------------------------------------------------------------------------
-		public bool UserValid(string name, string password)
+		public override int TryUserGetPlayerCount(string name)
 		{
-			return FindWithQuery<TableUser>("SELECT * FROM TableUser WHERE name=? AND password=? AND banned=0 AND deleted=0", name, password) != null;
-		}
-		
-		// -------------------------------------------------------------------------------
-		// UserExists
-		// -------------------------------------------------------------------------------
-		public bool UserExists(string name)
-		{
-			return FindWithQuery<TableUser>("SELECT * FROM TableUser WHERE name=?", name) != null;
+			if (!Tools.IsAllowedName(name))
+				return 0;
+			
+			return GetPlayerCount(name);
 		}
 		
 		// -------------------------------------------------------------------------------
