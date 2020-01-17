@@ -25,6 +25,8 @@ namespace wovencode
 			[PrimaryKey]
 			public string name 			{ get; set; }
 			public string password 		{ get; set; }
+			public string email			{ get; set; }
+			public string deviceid		{ get; set; }
 			public DateTime created 	{ get; set; }
 			public DateTime lastlogin 	{ get; set; }
 			public bool deleted 		{ get; set; }
