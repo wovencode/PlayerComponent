@@ -22,12 +22,12 @@ namespace wovencode
 		// ============================== PUBLIC METHODS =================================
 		
 		// -------------------------------------------------------------------------------
-		// 
+		// TryPlayerLogin
 		// -------------------------------------------------------------------------------
 		public override bool TryPlayerLogin(string name, string username)
 		{
 			
-			if (!base.TryPlayerLogin(name, username) || !UserValid(name, username))
+			if (!base.TryPlayerLogin(name, username) || !PlayerValid(name, username))
 				return false;
 			
 			LoginPlayer(name);
@@ -36,12 +36,12 @@ namespace wovencode
 		}
 		
 		// -------------------------------------------------------------------------------
-		// 
+		// TryPlayerRegister
 		// -------------------------------------------------------------------------------
 		public override bool TryPlayerRegister(string name, string username)
 		{
 		
-			if (!base.TryPlayerRegister(name, username) || UserExists(name))
+			if (!base.TryPlayerRegister(name, username) || PlayerExists(name, username))
 				return false;
 			
 			// -- check if maximum amount of characters per account reached
@@ -56,12 +56,12 @@ namespace wovencode
 		}
 		
 		// -------------------------------------------------------------------------------
-		// 
+		// TryPlayerDeleteSoft
 		// -------------------------------------------------------------------------------
 		public override bool TryPlayerDeleteSoft(string name, string username, int _action=1)
 		{
 		
-			if (!base.TryPlayerDeleteSoft(name, username) || !UserValid(name, username))
+			if (!base.TryPlayerDeleteSoft(name, username) || !PlayerValid(name, username))
 				return false;
 				
 			PlayerSetDeleted(name, _action);
@@ -70,27 +70,27 @@ namespace wovencode
 		}
 		
 		// -------------------------------------------------------------------------------
-		// 
+		// TryPlayerDeleteHard
 		// Permanently deletes the player and all of its data
 		// -------------------------------------------------------------------------------
-		public override bool TryPlayerDeleteHard(string _name)
+		public override bool TryPlayerDeleteHard(string name, string username)
 		{
 		
-			if (!base.TryPlayerDeleteHard(_name) || !PlayerExists(_name))
+			if (!base.TryPlayerDeleteHard(name, username) || !PlayerExists(name, username))
 				return false;
 			
-			PlayerDelete(_name);
+			PlayerDelete(name);
 			return true;	
 				
 		}
 		
 		// -------------------------------------------------------------------------------
-		// 
+		// TryPlayerBan
 		// -------------------------------------------------------------------------------
 		public override bool TryPlayerBan(string name, string username, int _action=1)
 		{
 			
-			if (!base.TryPlayerBan(name, username) || !UserValid(name, username))
+			if (!base.TryPlayerBan(name, username) || !PlayerValid(name, username))
 				return false;
 				
 			PlayerSetBanned(name, _action);

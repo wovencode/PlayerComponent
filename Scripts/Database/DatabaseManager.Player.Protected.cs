@@ -78,9 +78,9 @@ namespace wovencode
 		// -------------------------------------------------------------------------------
 		// 
 		// -------------------------------------------------------------------------------
-		public bool PlayerExists(string name)
+		public bool PlayerExists(string name, string username)
 		{
-			return FindWithQuery<TablePlayer>("SELECT * FROM TablePlayer WHERE name=?", name) != null;
+			return FindWithQuery<TablePlayer>("SELECT * FROM TablePlayer WHERE name=? AND username=?", name, username) != null;
 		}
 		
 		// -------------------------------------------------------------------------------

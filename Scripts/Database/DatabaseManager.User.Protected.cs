@@ -42,9 +42,9 @@ namespace wovencode
 		// -------------------------------------------------------------------------------
 		// UserRegister
 		// -------------------------------------------------------------------------------
-		protected void UserRegister(string name, string password)
+		protected void UserRegister(string name, string password, string email, string deviceid)
 		{
-			Insert(new TableUser{ name=name, password=password, created=DateTime.UtcNow, lastlogin=DateTime.Now, banned=false});
+			Insert(new TableUser{ name=name, password=password, email=email, deviceid=deviceid, created=DateTime.UtcNow, lastlogin=DateTime.Now, banned=false});
 		}
 		
 		// -------------------------------------------------------------------------------

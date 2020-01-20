@@ -38,13 +38,13 @@ namespace wovencode
 		// -------------------------------------------------------------------------------
 		// 
 		// -------------------------------------------------------------------------------
-		public override bool TryUserRegister(string name, string password)
+		public override bool TryUserRegister(string name, string password, string email)
 		{
 		
-			if (!base.TryUserRegister(name, password) || UserExists(name))
+			if (!base.TryUserRegister(name, password, email) || UserExists(name))
 				return false;
 			
-			UserRegister(name, password);
+			UserRegister(name, password, email, Tools.GetDeviceId);
 			return true;
 			
 		}
