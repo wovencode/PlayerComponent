@@ -4,13 +4,14 @@
 // MIT licensed
 // =======================================================================================
 
-using wovencode;
+using Wovencode;
+using Wovencode.Database;
 using UnityEngine;
 using System;
 using System.IO;
 using System.Collections.Generic;
 
-namespace wovencode
+namespace Wovencode.Database
 {
 
 	// ===================================================================================
@@ -22,7 +23,7 @@ namespace wovencode
 		// ============================== PUBLIC METHODS =================================
 		
 		// -------------------------------------------------------------------------------
-		// 
+		// TryUserLogin
 		// -------------------------------------------------------------------------------
 		public override bool TryUserLogin(string name, string password)
 		{
@@ -36,7 +37,7 @@ namespace wovencode
 		}
 		
 		// -------------------------------------------------------------------------------
-		// 
+		// TryUserRegister
 		// -------------------------------------------------------------------------------
 		public override bool TryUserRegister(string name, string password, string email)
 		{
@@ -50,7 +51,7 @@ namespace wovencode
 		}
 		
 		// -------------------------------------------------------------------------------
-		// 
+		// TryUserDelete
 		// -------------------------------------------------------------------------------
 		public override bool TryUserDelete(string name, string password, int _action=1)
 		{
@@ -64,7 +65,7 @@ namespace wovencode
 		}
 		
 		// -------------------------------------------------------------------------------
-		// 
+		// TryUserChangePassword
 		// -------------------------------------------------------------------------------
 		public override bool TryUserChangePassword(string name, string oldpassword, string newpassword)
 		{
@@ -78,7 +79,7 @@ namespace wovencode
 		}
 		
 		// -------------------------------------------------------------------------------
-		// 
+		// TryUserBan
 		// -------------------------------------------------------------------------------
 		public override bool TryUserBan(string name, string password, int _action=1)
 		{
@@ -92,7 +93,7 @@ namespace wovencode
 		}
 		
 		// -------------------------------------------------------------------------------
-		// 
+		// TryUserConfirm
 		// -------------------------------------------------------------------------------
 		public override bool TryUserConfirm(string name, string password, int _action=1)
 		{
@@ -106,7 +107,7 @@ namespace wovencode
 		}
 		
 		// -------------------------------------------------------------------------------
-		// 
+		// TryUserGetValid
 		// -------------------------------------------------------------------------------
 		public override bool  TryUserGetValid(string name, string password)
 		{
@@ -118,7 +119,7 @@ namespace wovencode
 		}
 		
 		// -------------------------------------------------------------------------------
-		// 
+		// TryUserGetExists
 		// -------------------------------------------------------------------------------
 		public override bool  TryUserGetExists(string name)
 		{
@@ -130,7 +131,7 @@ namespace wovencode
 		}
 		
 		// -------------------------------------------------------------------------------
-		// 
+		// TryUserGetPlayerCount
 		// -------------------------------------------------------------------------------
 		public override int TryUserGetPlayerCount(string name)
 		{

@@ -4,15 +4,16 @@
 // MIT licensed
 // =======================================================================================
 
-using wovencode;
+using Wovencode;
+using Wovencode.Database;
 using UnityEngine;
 using System;
-using System.IO;
+//using System.IO;
 using System.Collections.Generic;
 using SQLite;
-using UnityEngine.AI;
+//using UnityEngine.AI;
 
-namespace wovencode
+namespace Wovencode.Database
 {
 
 	// ===================================================================================

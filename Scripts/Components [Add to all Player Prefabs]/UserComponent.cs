@@ -10,9 +10,9 @@ using System.Text;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using wovencode;
+using Wovencode;
 
-namespace wovencode {
+namespace Wovencode {
 	
 	// ===================================================================================
 	// UserComponent
