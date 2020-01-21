@@ -11,7 +11,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using SQLite;
-//using UnityEngine.AI;
 
 namespace Wovencode.Database
 {
@@ -34,10 +33,10 @@ namespace Wovencode.Database
 		}
 		
 	   	// -------------------------------------------------------------------------------
-	   	// CreateDefaultData_User
+	   	// CreateDefaultDataUser_User
 	   	// -------------------------------------------------------------------------------
-	   	[DevExtMethods("CreateDefaultData")]
-		void CreateDefaultData_User(GameObject player)
+	   	[DevExtMethods("CreateDefaultDataUser")]
+		void CreateDefaultDataUser_User(GameObject player)
 		{
 			/*
 				users have no default data, feel free to add your own
@@ -49,8 +48,8 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		// LoadDataWithPriority_User
 		// -------------------------------------------------------------------------------
-		[DevExtMethods("LoadDataWithPriority")]
-		void LoadDataWithPriority_User(GameObject player)
+		[DevExtMethods("LoadDataPlayerPriority")]
+		void LoadDataPlayerPriority_User(GameObject player)
 		{
 			/*
 				users do not load priority data, feel free to add your own
@@ -60,15 +59,39 @@ namespace Wovencode.Database
 		}
 		
 	   	// -------------------------------------------------------------------------------
-	   	// LoadData_User
+	   	// LoadDataPlayer_User
 	   	// -------------------------------------------------------------------------------
-		[DevExtMethods("LoadData")]
-		void LoadData_User(GameObject player)
+		[DevExtMethods("LoadDataPlayer")]
+		void LoadDataPlayer_User(GameObject player)
 		{
 	   		/*
 				users do not load any data, feel free to add your own
 				
 				instead, user data is saved/loaded as part of the register/login process
+			*/
+		}
+		
+		// -------------------------------------------------------------------------------
+	   	// LoadDataUser_User
+	   	// -------------------------------------------------------------------------------
+		[DevExtMethods("LoadDataUser")]
+		void LoadDataUser_User(GameObject player)
+		{
+	   		/*
+				users do not load any data, feel free to add your own
+				
+				instead, user data is saved/loaded as part of the register/login process
+			*/
+		}
+		
+		// -------------------------------------------------------------------------------
+	   	// SaveDataPlayer_User
+	   	// -------------------------------------------------------------------------------
+		[DevExtMethods("SaveDataPlayer")]
+		void SaveDataPlayer_User(GameObject player, bool isOnline)
+		{
+	   		/*
+				users do not save any player data, feel free to add your own
 			*/
 		}
 		
@@ -100,11 +123,11 @@ namespace Wovencode.Database
 	   	}
 		
 		// -------------------------------------------------------------------------------
-	   	// UserDelete_User
-	   	// Note: This one is not called "DeleteData" because its the user, not a player
+	   	// DeleteDataUser_User
+	   	// Note: This one is not called "DeleteDataPlayer" because its the user, not a player
 	   	// -------------------------------------------------------------------------------
-	   	[DevExtMethods("UserDelete")]
-	   	void UserDelete_User(string name)
+	   	[DevExtMethods("DeleteDataUser")]
+	   	void DeleteDataUser_User(string name)
 	   	{
 	   		Execute("DELETE FROM TableUser WHERE name=?", name);
 	   	}

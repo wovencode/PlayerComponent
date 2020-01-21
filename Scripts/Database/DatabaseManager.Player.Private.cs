@@ -8,10 +8,8 @@ using Wovencode;
 using Wovencode.Database;
 using UnityEngine;
 using System;
-//using System.IO;
 using System.Collections.Generic;
 using SQLite;
-//using UnityEngine.AI;
 
 namespace Wovencode.Database
 {
@@ -34,37 +32,37 @@ namespace Wovencode.Database
 		}
 		
 	   	// -------------------------------------------------------------------------------
-	   	// CreateDefaultData_Player
+	   	// CreateDefaultDataPlayer_Player
 	   	// -------------------------------------------------------------------------------
-	   	[DevExtMethods("CreateDefaultData")]
-		void CreateDefaultData_Player(GameObject player)
+	   	[DevExtMethods("CreateDefaultDataPlayer")]
+		void CreateDefaultDataPlayer_Player(GameObject player)
 		{
 			
 		}
 		
 		// -------------------------------------------------------------------------------
-		// LoadDataWithPriority_Player
+		// LoadDataPlayerPriority_Player
 		// -------------------------------------------------------------------------------
-		[DevExtMethods("LoadDataWithPriority")]
-		void LoadDataWithPriority_Player(GameObject player)
+		[DevExtMethods("LoadDataPlayerPriority")]
+		void LoadDataPlayerPriority_Player(GameObject player)
 		{
 			
 		}
 		
 	   	// -------------------------------------------------------------------------------
-	   	// LoadData_Player
+	   	// LoadDataPlayer_Player
 	   	// -------------------------------------------------------------------------------
-		[DevExtMethods("LoadData")]
-		void LoadData_Player(GameObject player)
+		[DevExtMethods("LoadDataPlayer")]
+		void LoadDataPlayer_Player(GameObject player)
 		{
 	   		
 		}
 		
 	   	// -------------------------------------------------------------------------------
-	   	// SaveData_Player
+	   	// SaveDataPlayer_Player
 	   	// -------------------------------------------------------------------------------
-		[DevExtMethods("SaveData")]
-		void SaveData_Player(GameObject player)
+		[DevExtMethods("SaveDataPlayer")]
+		void SaveDataPlayer_Player(GameObject player, bool isOnline)
 		{
 	   		Execute("UPDATE TablePlayer SET lastsaved=? WHERE name=?", DateTime.UtcNow, player.name);
 		}
@@ -88,10 +86,10 @@ namespace Wovencode.Database
 	   	}
 		
 		// -------------------------------------------------------------------------------
-	   	// DeleteData_Player
+	   	// DeleteDataPlayer_Player
 	   	// -------------------------------------------------------------------------------
-	   	[DevExtMethods("DeleteData")]
-	   	void DeleteData_Player(string name)
+	   	[DevExtMethods("DeleteDataPlayer")]
+	   	void DeleteDataPlayer_Player(string name)
 	   	{
 	   		Execute("DELETE FROM TablePlayer WHERE name=?", name);
 	   	}

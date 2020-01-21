@@ -84,13 +84,13 @@ namespace Wovencode.Database
 		}
 		
 		// -------------------------------------------------------------------------------
-		// UserDelete
+		// DeleteDataUser
 		// Permanently deletes the user and all of its data (hard delete)
 		// -------------------------------------------------------------------------------
-		protected void UserDelete(string name)
+		protected void DeleteDataUser(string name)
 		{			
-			this.InvokeInstanceDevExtMethods("DeleteData", name);
-			this.InvokeInstanceDevExtMethods(nameof(UserDelete), name);
+			this.InvokeInstanceDevExtMethods("DeleteDataPlayer", name); // delete player data too
+			this.InvokeInstanceDevExtMethods(nameof(DeleteDataUser), name);
 		}
 		
 		// -------------------------------------------------------------------------------

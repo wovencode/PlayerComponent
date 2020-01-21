@@ -11,7 +11,6 @@ using Wovencode.Network;
 #endif
 using UnityEngine;
 using System;
-//using System.IO;
 using System.Collections.Generic;
 
 namespace Wovencode.Database
@@ -83,7 +82,7 @@ namespace Wovencode.Database
 			if (!base.TryPlayerDeleteHard(name, username) || !PlayerExists(name, username))
 				return false;
 			
-			PlayerDelete(name);
+			DeleteDataPlayer(name);
 			return true;	
 				
 		}

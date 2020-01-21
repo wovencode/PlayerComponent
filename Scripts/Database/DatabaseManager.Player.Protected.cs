@@ -8,10 +8,8 @@ using Wovencode;
 using Wovencode.Database;
 using UnityEngine;
 using System;
-//using System.IO;
 using System.Collections.Generic;
 using SQLite;
-//using UnityEngine.AI;
 
 namespace Wovencode.Database
 {
@@ -52,12 +50,12 @@ namespace Wovencode.Database
 		}
 		
 		// -------------------------------------------------------------------------------
-		// PlayerDelete
+		// DeleteDataPlayer
 		// Permanently deletes the player and all of its data (hard delete)
 		// -------------------------------------------------------------------------------
-		protected void PlayerDelete(string _name)
+		protected void DeleteDataPlayer(string _name)
 		{			
-			this.InvokeInstanceDevExtMethods("DeleteData", _name);
+			this.InvokeInstanceDevExtMethods(nameof(DeleteDataPlayer), _name);
 		}
 		
 		// -------------------------------------------------------------------------------
