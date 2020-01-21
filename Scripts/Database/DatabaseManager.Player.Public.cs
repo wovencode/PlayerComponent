@@ -6,6 +6,9 @@
 
 using Wovencode;
 using Wovencode.Database;
+#if wNETWORK
+using Wovencode.Network;
+#endif
 using UnityEngine;
 using System;
 //using System.IO;
@@ -97,6 +100,23 @@ namespace Wovencode.Database
 			PlayerSetBanned(name, _action);
 			return true;	
 			
+		}
+		
+		// ===============================================================================
+		
+		// -------------------------------------------------------------------------------
+		// GetPlayers
+		// -------------------------------------------------------------------------------
+		public List<PlayerPreview> GetPlayers(string username)
+		{
+			List<TablePlayer> results = Query<TablePlayer>("SELECT * FROM TablePlayer WHERE username=? AND deleted=0 AND banned=0", username);
+			
+			List<PlayerPreview> players = new List<PlayerPreview>();
+			
+			foreach (TablePlayer result in results)
+				players.Add(new PlayerPreview { name = result.name} );
+			
+			return players;
 		}
 		
 		// -------------------------------------------------------------------------------
