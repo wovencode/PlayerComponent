@@ -39,12 +39,19 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		// TryUserRegister
 		// -------------------------------------------------------------------------------
-		public override bool TryUserRegister(string name, string password, string email)
+		public override bool TryUserRegister(string name, string password, string email, string deviceid)
 		{
 		
-			if (!base.TryUserRegister(name, password, email) || UserExists(name))
+			if (!base.TryUserRegister(name, password, email, deviceid) || UserExists(name))
 				return false;
-			
+
+			// -- check if maximum amount of users per device reached
+#if wNETWORK
+			int userCount = GetUserCount(deviceid, email);
+			if (userCount >= GameRulesTemplate.singleton.maxUsersPerDevice || userCount >= GameRulesTemplate.singleton.maxUsersPerEmail)
+				return false;
+#endif
+
 			UserRegister(name, password, email, Tools.GetDeviceId);
 			return true;
 			

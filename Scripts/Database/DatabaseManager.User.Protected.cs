@@ -107,7 +107,27 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		protected int GetPlayerCount(string username)
 		{
-			return Query<TablePlayer>("SELECT * FROM TablePlayer WHERE username=? AND deleted=0", username).Count;
+			List<TablePlayer> result =  Query<TablePlayer>("SELECT * FROM TablePlayer WHERE username=? AND deleted=0", username);
+			
+			if (result == null)
+				return 0;
+			else
+				return result.Count;
+		}
+		
+		// -------------------------------------------------------------------------------
+		// GetUserCount
+		// -------------------------------------------------------------------------------
+		protected int GetUserCount(string deviceid, string email)
+		{
+
+			List<TableUser> result = Query<TableUser>("SELECT * FROM TableUser WHERE deviceid=? AND email=? AND deleted=0", deviceid, email);
+			
+			if (result == null)
+				return 0;
+			else
+				return result.Count;
+
 		}
 		
 		// -------------------------------------------------------------------------------

@@ -16,8 +16,8 @@ Quickstart
 
 Basic Usage
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-* All scripts are in the "wovencode" namespace
-* Add "using wovencode;" to your script headers.
+* Add the sample player prefab to your NetworkManager spawnables prefabs.
+* If you are using your own player prefab, add the "PlayerComponent" to it.
 
 Requirements
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -28,10 +28,13 @@ Contains Open-Source Code
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 * None
 
-Documentation
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-None for now.
+Namespace
+---
+* Wovencode
 
-Support
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-None for now.
+Compatibility
+---
+* Unity3d 2018-2019 (inclusive)
+* Client: Windows, MacOS, Android, iOS, Linux
+* Server: Windows, MacOs, Linux
+* Single-Player: Windows, MacOS, Android, iOS, Linux
