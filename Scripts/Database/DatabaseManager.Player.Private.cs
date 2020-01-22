@@ -64,7 +64,7 @@ namespace Wovencode.Database
 		[DevExtMethods("SaveDataPlayer")]
 		void SaveDataPlayer_Player(GameObject player, bool isOnline)
 		{
-	   		Execute("UPDATE TablePlayer SET lastsaved=? WHERE name=?", DateTime.UtcNow, player.name);
+	   		Execute("UPDATE "+nameof(TablePlayer)+" SET lastsaved=? WHERE name=?", DateTime.UtcNow, player.name);
 		}
 		
 		// -------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ namespace Wovencode.Database
 	   	[DevExtMethods("DeleteDataPlayer")]
 	   	void DeleteDataPlayer_Player(string name)
 	   	{
-	   		Execute("DELETE FROM TablePlayer WHERE name=?", name);
+	   		Execute("DELETE FROM "+nameof(TablePlayer)+" WHERE name=?", name);
 	   	}
 		
 		// -------------------------------------------------------------------------------

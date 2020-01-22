@@ -101,7 +101,7 @@ namespace Wovencode.Database
 		[DevExtMethods("SaveDataUser")]
 		void SaveDataUser_User(string username, bool isOnline)
 		{
-	   		Execute("UPDATE TableUser SET lastsaved=?, online=? WHERE name=?", DateTime.UtcNow, (isOnline) ? 1 : 0, username);
+	   		Execute("UPDATE "+nameof(TableUser)+" SET lastsaved=?, online=? WHERE name=?", DateTime.UtcNow, isOnline.ToInt(), username);
 		}
 		
 		// -------------------------------------------------------------------------------
@@ -129,7 +129,7 @@ namespace Wovencode.Database
 	   	[DevExtMethods("DeleteDataUser")]
 	   	void DeleteDataUser_User(string name)
 	   	{
-	   		Execute("DELETE FROM TableUser WHERE name=?", name);
+	   		Execute("DELETE FROM "+nameof(TableUser)+" WHERE name=?", name);
 	   	}
 	   	
 		// -------------------------------------------------------------------------------

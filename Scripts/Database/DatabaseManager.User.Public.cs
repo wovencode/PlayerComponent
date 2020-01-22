@@ -60,13 +60,13 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		// TryUserDelete
 		// -------------------------------------------------------------------------------
-		public override bool TryUserDelete(string name, string password, int _action=1)
+		public override bool TryUserDelete(string name, string password, int action=1)
 		{
 		
 			if (!base.TryUserDelete(name, password) || !UserValid(name, password))
 				return false;
 				
-			UserSetDeleted(name, _action);
+			UserSetDeleted(name, action);
 			return true;	
 			
 		}
@@ -88,13 +88,13 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		// TryUserBan
 		// -------------------------------------------------------------------------------
-		public override bool TryUserBan(string name, string password, int _action=1)
+		public override bool TryUserBan(string name, string password, int action=1)
 		{
 			
 			if (!base.TryUserBan(name, password) || !UserValid(name, password))
 				return false;
 				
-			UserSetBanned(name, _action);
+			UserSetBanned(name, action);
 			return true;	
 			
 		}
@@ -102,13 +102,13 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		// TryUserConfirm
 		// -------------------------------------------------------------------------------
-		public override bool TryUserConfirm(string name, string password, int _action=1)
+		public override bool TryUserConfirm(string name, string password, int action=1)
 		{
 		
 			if (!base.TryUserConfirm(name, password) || !UserValid(name, password))
 				return false;
 				
-			UserSetConfirmed(name, _action);
+			UserSetConfirmed(name, action);
 			return true;	
 			
 		}

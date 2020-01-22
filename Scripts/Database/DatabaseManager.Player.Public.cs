@@ -108,7 +108,7 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		public List<PlayerPreview> GetPlayers(string username)
 		{
-			List<TablePlayer> results = Query<TablePlayer>("SELECT * FROM TablePlayer WHERE username=? AND deleted=0 AND banned=0", username);
+			List<TablePlayer> results = Query<TablePlayer>("SELECT * FROM "+nameof(TablePlayer)+" WHERE username=? AND deleted=0 AND banned=0", username);
 			
 			List<PlayerPreview> players = new List<PlayerPreview>();
 			

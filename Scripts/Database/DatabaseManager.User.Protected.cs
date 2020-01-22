@@ -29,7 +29,7 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		protected bool UserValid(string name, string password)
 		{
-			return FindWithQuery<TableUser>("SELECT * FROM TableUser WHERE name=? AND password=? AND banned=0 AND deleted=0", name, password) != null;
+			return FindWithQuery<TableUser>("SELECT * FROM "+nameof(TableUser)+" WHERE name=? AND password=? AND banned=0 AND deleted=0", name, password) != null;
 		}
 		
 		// -------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		protected bool UserExists(string name)
 		{
-			return FindWithQuery<TableUser>("SELECT * FROM TableUser WHERE name=?", name) != null;
+			return FindWithQuery<TableUser>("SELECT * FROM "+nameof(TableUser)+" WHERE name=?", name) != null;
 		}
 		
 		// -------------------------------------------------------------------------------
@@ -53,7 +53,7 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		protected void UserChangePassword(string name, string oldpassword, string newpassword)
 		{
-			Execute("UPDATE TableUser SET password=? WHERE name=? AND password=?", newpassword, name, oldpassword);
+			Execute("UPDATE "+nameof(TableUser)+" SET password=? WHERE name=? AND password=?", newpassword, name, oldpassword);
 		}
 		
 		// -------------------------------------------------------------------------------
@@ -62,7 +62,7 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		protected void UserSetOnline(string name, int action=1)
 		{
-			Execute("UPDATE TableUser SET online=?, lastlogin=? WHERE name=?", action, DateTime.UtcNow, name);
+			Execute("UPDATE "+nameof(TableUser)+" SET online=?, lastlogin=? WHERE name=?", action, DateTime.UtcNow, name);
 		}
 		
 		// -------------------------------------------------------------------------------
@@ -71,7 +71,7 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		protected void UserSetDeleted(string name, int action=1)
 		{
-			Execute("UPDATE TableUser SET deleted=? WHERE name=?", action, name);
+			Execute("UPDATE "+nameof(TableUser)+" SET deleted=? WHERE name=?", action, name);
 		}
 		
 		// -------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		protected void UserSetBanned(string name, int action=1)
 		{
-			Execute("UPDATE TableUser SET banned=? WHERE name=?", action, name);
+			Execute("UPDATE "+nameof(TableUser)+" SET banned=? WHERE name=?", action, name);
 		}
 		
 		// -------------------------------------------------------------------------------
@@ -89,7 +89,7 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		protected void DeleteDataUser(string name)
 		{			
-			this.InvokeInstanceDevExtMethods("DeleteDataPlayer", name); // delete player data too
+			this.InvokeInstanceDevExtMethods("DeleteDataPlayer", name); 		// delete player data too
 			this.InvokeInstanceDevExtMethods(nameof(DeleteDataUser), name);
 		}
 		
@@ -99,15 +99,16 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		protected void UserSetConfirmed(string name, int action=1)
 		{
-			Execute("UPDATE TableUser SET confirmed=? WHERE name=?", action, name);
+			Execute("UPDATE "+nameof(TableUser)+" SET confirmed=? WHERE name=?", action, name);
 		}
 		
 		// -------------------------------------------------------------------------------
 		// GetPlayerCount
+		// returns the number of players registered on this user account
 		// -------------------------------------------------------------------------------
 		protected int GetPlayerCount(string username)
 		{
-			List<TablePlayer> result =  Query<TablePlayer>("SELECT * FROM TablePlayer WHERE username=? AND deleted=0", username);
+			List<TablePlayer> result =  Query<TablePlayer>("SELECT * FROM "+nameof(TablePlayer)+" WHERE username=? AND deleted=0", username);
 			
 			if (result == null)
 				return 0;
@@ -117,11 +118,12 @@ namespace Wovencode.Database
 		
 		// -------------------------------------------------------------------------------
 		// GetUserCount
+		// returns the number of user accounts registered on this device-id and/or email
 		// -------------------------------------------------------------------------------
-		protected int GetUserCount(string deviceid, string email)
+		protected int GetUserCount(string deviceId, string eMail)
 		{
 
-			List<TableUser> result = Query<TableUser>("SELECT * FROM TableUser WHERE deviceid=? AND email=? AND deleted=0", deviceid, email);
+			List<TableUser> result = Query<TableUser>("SELECT * FROM "+nameof(TableUser)+" WHERE deviceid=? AND email=? AND deleted=0", deviceId, eMail);
 			
 			if (result == null)
 				return 0;
