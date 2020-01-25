@@ -6,45 +6,42 @@
 
 using Wovencode;
 using Wovencode.Database;
+using UnityEngine;
 using System;
+using System.IO;
+using System.Collections.Generic;
 using SQLite;
 
 namespace Wovencode.Database
 {
-
+	
 	// ===================================================================================
-	// DatabaseManager
+	// Database
 	// ===================================================================================
 	public partial class DatabaseManager
 	{
-	
+		
 		// -------------------------------------------------------------------------------
-		// TablePlayer
+		// DeleteUsers_PlayerComponent
 		// -------------------------------------------------------------------------------
-		partial class TablePlayer
+		[DevExtMethods("DeleteUsers")]
+		void DeleteUsers_PlayerComponent()
 		{
-			[PrimaryKey]
-			[Collation("NOCASE")]
-			public string name 			{ get; set; }
-			public string username		{ get; set; }
-			public DateTime created 	{ get; set; }
-			public DateTime lastlogin 	{ get; set; }
-			public bool deleted 		{ get; set; }
-			public bool banned 			{ get; set; }
-			public bool online 			{ get; set; }
-			public DateTime lastsaved 	{ get; set; }
-			public int token			{ get; set; }
-						
-			public string prefab		{ get; set; }
-			public float x 				{ get; set; }
-        	public float y 				{ get; set; }
-        	public float z 				{ get; set; }
+
+			List<TableUser> users = Query<TableUser>("SELECT * FROM "+nameof(TableUser)+" WHERE deleted=1");
+
+			foreach (TableUser user in users)
+				this.InvokeInstanceDevExtMethods("DeleteDataPlayerUser", user.name);
 			
-			
+			if (users.Count > 0)
+				debug.Log("[DatabaseManager] Pruned " + users.Count + " inactive user(s)");
+
 		}
-	
+		
+		// -------------------------------------------------------------------------------
+
 	}
-	
-	// -------------------------------------------------------------------------------
-	
+
 }
+
+// =======================================================================================

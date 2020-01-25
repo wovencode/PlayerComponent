@@ -21,7 +21,16 @@ namespace Wovencode.Database
 	// ===================================================================================
 	public partial class DatabaseManager
 	{
-				
+		
+		// -------------------------------------------------------------------------------
+		// GetPlayerPrefabName
+		// -------------------------------------------------------------------------------
+		public string GetPlayerPrefabName(string playername)
+		{
+			return FindWithQuery<TablePlayer>("SELECT * FROM "+nameof(TablePlayer)+" WHERE name=?", playername).prefab;
+			
+		}
+		
 		// ============================== PUBLIC METHODS =================================
 		
 		// -------------------------------------------------------------------------------
@@ -41,10 +50,10 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		// TryPlayerRegister
 		// -------------------------------------------------------------------------------
-		public override bool TryPlayerRegister(string name, string username)
+		public override bool TryPlayerRegister(string name, string username, string prefabname)
 		{
 		
-			if (!base.TryPlayerRegister(name, username) || PlayerExists(name, username))
+			if (!base.TryPlayerRegister(name, username, prefabname) || PlayerExists(name, username))
 				return false;
 			
 			// -- check if maximum amount of characters per account reached
@@ -53,7 +62,7 @@ namespace Wovencode.Database
 				return false;
 #endif
 
-			PlayerRegister(name, username);
+			PlayerRegister(name, username, prefabname);
 			return true;
 			
 		}
@@ -101,25 +110,6 @@ namespace Wovencode.Database
 			
 		}
 		
-		// ===============================================================================
-
-#if wNETWORK
-		// -------------------------------------------------------------------------------
-		// GetPlayers
-		// -------------------------------------------------------------------------------
-		public List<PlayerPreview> GetPlayers(string username)
-		{
-			List<TablePlayer> results = Query<TablePlayer>("SELECT * FROM "+nameof(TablePlayer)+" WHERE username=? AND deleted=0 AND banned=0", username);
-			
-			List<PlayerPreview> players = new List<PlayerPreview>();
-			
-			foreach (TablePlayer result in results)
-				players.Add(new PlayerPreview { name = result.name} );
-			
-			return players;
-		}
-#endif
-
 		// -------------------------------------------------------------------------------
 		
 	}

@@ -61,9 +61,9 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		// 
 		// -------------------------------------------------------------------------------
-		public void PlayerRegister(string name, string username)
+		public void PlayerRegister(string name, string username, string prefabname)
 		{
-			Insert(new TablePlayer{ name=name, username=username, created=DateTime.UtcNow, lastlogin=DateTime.Now, banned=false});
+			Insert(new TablePlayer{ name=name, username=username, prefab=prefabname, created=DateTime.UtcNow, lastlogin=DateTime.Now, banned=false});
 		}
 		
 		// -------------------------------------------------------------------------------

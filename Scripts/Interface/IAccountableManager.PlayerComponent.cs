@@ -32,7 +32,7 @@ namespace Wovencode.Database
 		
 		// ---- Player
 		bool TryPlayerLogin(string name, string username);
-		bool TryPlayerRegister(string name, string username);
+		bool TryPlayerRegister(string name, string username, string prefabname);
 		bool TryPlayerDeleteSoft(string name, string username, int action=1);
 		bool TryPlayerDeleteHard(string name, string username);
 		bool TryPlayerBan(string name, string username, int action=1);
