@@ -7,12 +7,9 @@
 using Wovencode;
 using Wovencode.Network;
 using Wovencode.Database;
-using Wovencode.UI;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using Mirror;
 
 namespace Wovencode.Network
@@ -25,7 +22,27 @@ namespace Wovencode.Network
 	{
 				
 		protected List<GameObject> _playerPrefabs = null;
-
+		
+		// -------------------------------------------------------------------------------
+		// LoginPlayer_PlayerComponent
+		// -------------------------------------------------------------------------------
+		[DevExtMethods("LoginPlayer")]
+		public void LoginPlayer_PlayerComponent(GameObject player, string userName)
+		{
+			player.GetComponent<PlayerComponent>().tablePlayer.Update(player, true, userName);
+		}
+		
+		// -------------------------------------------------------------------------------
+		// RegisterPlayer_PlayerComponent
+		// -------------------------------------------------------------------------------
+		[DevExtMethods("RegisterPlayer")]
+		public void RegisterPlayer_PlayerComponent(GameObject player, string userName, string prefabName)
+		{
+			player.GetComponent<PlayerComponent>().tablePlayer.Create(player, userName, prefabName);
+		}
+		
+		// ================================== PUBLIC =====================================
+		
 		// -------------------------------------------------------------------------------
 		// playerPrefabs
 		// -------------------------------------------------------------------------------
@@ -39,6 +56,24 @@ namespace Wovencode.Network
 			}
 		}
 
+		
+		// ================================== PROTECTED ==================================
+		
+		// -------------------------------------------------------------------------------
+		// GetPlayerPrefab
+		// -------------------------------------------------------------------------------
+		protected override GameObject GetPlayerPrefab(string prefabName)
+		{
+			
+			GameObject prefab = playerPrefabs.Find(p => p.name == prefabName);
+
+			if (prefab == null)
+				return playerPrefab;
+			
+			return prefab;
+			
+		}
+		
 		// -------------------------------------------------------------------------------
 		// FilterPlayerPrefabs
 		// -------------------------------------------------------------------------------
@@ -55,7 +90,7 @@ namespace Wovencode.Network
         	}
         	
     	}
-
+    	
 		// -------------------------------------------------------------------------------
 
 	}

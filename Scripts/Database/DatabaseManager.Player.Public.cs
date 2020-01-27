@@ -28,7 +28,6 @@ namespace Wovencode.Database
 		public string GetPlayerPrefabName(string playername)
 		{
 			return FindWithQuery<TablePlayer>("SELECT * FROM "+nameof(TablePlayer)+" WHERE name=?", playername).prefab;
-			
 		}
 		
 		// ============================== PUBLIC METHODS =================================
@@ -62,7 +61,6 @@ namespace Wovencode.Database
 				return false;
 #endif
 
-			PlayerRegister(name, username, prefabname);
 			return true;
 			
 		}

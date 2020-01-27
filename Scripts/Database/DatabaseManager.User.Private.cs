@@ -73,11 +73,13 @@ namespace Wovencode.Database
 		
 		// -------------------------------------------------------------------------------
 	   	// LoadDataUser_User
+	   	// we simply fetch the table that is present on the local player object instead
+	   	// of copy-pasting all the individual properties, update it and forward it to the db
 	   	// -------------------------------------------------------------------------------
 		[DevExtMethods("LoadDataUser")]
 		void LoadDataUser_User(GameObject player)
 		{
-	   		/*
+	   	/*
 				users do not load any data, feel free to add your own
 				
 				instead, user data is saved/loaded as part of the register/login process
@@ -97,6 +99,8 @@ namespace Wovencode.Database
 		
 	   	// -------------------------------------------------------------------------------
 	   	// SaveDataUser_User
+	   	// we simply fetch the table that is present on the local player object instead
+	   	// of copy-pasting all the individual properties, update it and forward it to the db
 	   	// -------------------------------------------------------------------------------
 		[DevExtMethods("SaveDataUser")]
 		void SaveDataUser_User(string username, bool isOnline)

@@ -59,15 +59,7 @@ namespace Wovencode.Database
 		}
 		
 		// -------------------------------------------------------------------------------
-		// 
-		// -------------------------------------------------------------------------------
-		public void PlayerRegister(string name, string username, string prefabname)
-		{
-			Insert(new TablePlayer{ name=name, username=username, prefab=prefabname, created=DateTime.UtcNow, lastlogin=DateTime.Now, banned=false});
-		}
-		
-		// -------------------------------------------------------------------------------
-		// 
+		// PlayerValid
 		// -------------------------------------------------------------------------------
 		public bool PlayerValid(string name, string username)
 		{
@@ -75,7 +67,7 @@ namespace Wovencode.Database
 		}
 		
 		// -------------------------------------------------------------------------------
-		// 
+		// PlayerExists
 		// -------------------------------------------------------------------------------
 		public bool PlayerExists(string name, string username)
 		{

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using Wovencode;
+using Wovencode.Database;
 
 namespace Wovencode {
 	
@@ -21,9 +22,10 @@ namespace Wovencode {
 	[System.Serializable]
 	public partial class UserComponent : SyncableComponent
 	{
-	
-    	
-    	[SyncVar, HideInInspector] public string username;
+		
+		// holds exact replica of table data as in database
+		// no need to sync, can be done individually if required
+    	public TableUser tableUser = new TableUser();
     	
 		// -------------------------------------------------------------------------------
 		// 
