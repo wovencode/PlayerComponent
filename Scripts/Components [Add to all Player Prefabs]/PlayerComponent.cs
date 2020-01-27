@@ -12,6 +12,7 @@ using UnityEngine;
 using Mirror;
 using Wovencode;
 using Wovencode.Database;
+using UnityEngine.AI;
 
 namespace Wovencode {
 	
@@ -27,21 +28,25 @@ namespace Wovencode {
 		// no need to sync, can be done individually if required
 		public TablePlayer tablePlayer = new TablePlayer();
 		
+		public NavMeshAgent agent;
+		
 		Camera mainCamera;
 		
 		// -------------------------------------------------------------------------------
-		// 
+		// Start
 		// -------------------------------------------------------------------------------
 		protected override void Start()
     	{
-        	base.Start();
+        	base.Start(); // required
 		}
 		
 		// -------------------------------------------------------------------------------
-		// 
+		// OnStartLocalPlayer
 		// -------------------------------------------------------------------------------
 		public override void OnStartLocalPlayer()
     	{
+    		agent = GetComponent<NavMeshAgent>();
+    		
         	mainCamera = Camera.main;
         	mainCamera.GetComponent<FollowCameraControls>().target = this.transform;
         	mainCamera.GetComponent<FollowCameraControls>().enabled = true;

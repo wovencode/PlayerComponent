@@ -59,6 +59,7 @@ namespace Wovencode.Database
 		{
 	   		TablePlayer tablePlayer = FindWithQuery<TablePlayer>("SELECT * FROM "+nameof(TablePlayer)+" WHERE name=? AND deleted=0", player.name);
 	   		player.GetComponent<PlayerComponent>().tablePlayer = tablePlayer;
+	   		player.transform.position = new Vector3(tablePlayer.x, tablePlayer.y, tablePlayer.z);
 		}
 		
 	   	// -------------------------------------------------------------------------------

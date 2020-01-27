@@ -10,6 +10,7 @@ using Wovencode.Database;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using Mirror;
 
 namespace Wovencode.Network
@@ -38,6 +39,7 @@ namespace Wovencode.Network
 		[DevExtMethods("RegisterPlayer")]
 		public void RegisterPlayer_PlayerComponent(GameObject player, string userName, string prefabName)
 		{
+			player.transform.position = GetStartPosition(player).position;
 			player.GetComponent<PlayerComponent>().tablePlayer.Create(player, userName, prefabName);
 		}
 		
@@ -56,8 +58,49 @@ namespace Wovencode.Network
 			}
 		}
 
-		
 		// ================================== PROTECTED ==================================
+		
+		// -------------------------------------------------------------------------------
+		// GetStartPosition
+		// -------------------------------------------------------------------------------
+		protected Transform GetStartPosition(GameObject player)
+		{
+			
+			//TODO: Add start position randomization here
+			
+			foreach (Transform startPosition in startPositions)
+			{
+			
+				Wovencode.Network.NetworkStartPosition position = startPosition.GetComponent<Wovencode.Network.NetworkStartPosition>();
+				
+				if (position == null || position.archeTypes.Length == 0)
+					continue;
+				
+				PlayerComponent playerComponent = player.GetComponent<PlayerComponent>();
+				
+				foreach (ArchetypeTemplate template in position.archeTypes)
+					if (template == playerComponent.archeType)
+						return position.transform;
+						
+			}
+			
+			return GetStartPosition();
+		
+		}
+		
+		// -------------------------------------------------------------------------------
+		// ValidatePlayerPosition
+		// -------------------------------------------------------------------------------
+		protected void ValidatePlayerPosition(GameObject player)
+		{
+			Transform transform = player.transform;
+			
+			if (!NavMesh.SamplePosition(player.transform.position, out NavMeshHit hit, 0.1f, NavMesh.AllAreas))
+				transform = GetStartPosition(player);
+				
+			player.GetComponent<NavMeshAgent>().Warp(transform.position);
+			
+		}
 		
 		// -------------------------------------------------------------------------------
 		// GetPlayerPrefab
