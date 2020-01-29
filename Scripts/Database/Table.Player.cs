@@ -15,7 +15,7 @@ namespace Wovencode.Database
 	{
 		[PrimaryKey]
 		[Collation("NOCASE")]
-		public string name 			{ get; set; }
+		public string playername	{ get; set; }
 		public string username		{ get; set; }
 		public DateTime created 	{ get; set; }
 		public DateTime lastlogin 	{ get; set; }
@@ -51,7 +51,7 @@ namespace Wovencode.Database
 		public void Update(GameObject player, bool isOnline, string userName="")
 		{
 			
-			name = player.name;
+			playername = player.name;
 			
 			if (!String.IsNullOrWhiteSpace(userName))
 				username = userName;

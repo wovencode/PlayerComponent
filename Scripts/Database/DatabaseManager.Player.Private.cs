@@ -52,7 +52,7 @@ namespace Wovencode.Database
 		[DevExtMethods("LoadDataPlayer")]
 		void LoadDataPlayer_Player(GameObject player)
 		{
-	   		TablePlayer tablePlayer = FindWithQuery<TablePlayer>("SELECT * FROM "+nameof(TablePlayer)+" WHERE name=? AND deleted=0", player.name);
+	   		TablePlayer tablePlayer = FindWithQuery<TablePlayer>("SELECT * FROM "+nameof(TablePlayer)+" WHERE playername=? AND deleted=0", player.name);
 	   		player.GetComponent<PlayerComponent>().tablePlayer = tablePlayer;
 	   		player.transform.position = new Vector3(tablePlayer.x, tablePlayer.y, tablePlayer.z);
 		}
@@ -94,9 +94,9 @@ namespace Wovencode.Database
 	   	// DeleteDataPlayer_Player
 	   	// -------------------------------------------------------------------------------
 	   	[DevExtMethods("DeleteDataPlayer")]
-	   	void DeleteDataPlayer_Player(string name)
+	   	void DeleteDataPlayer_Player(string playername)
 	   	{
-	   		Execute("DELETE FROM "+nameof(TablePlayer)+" WHERE name=?", name);
+	   		Execute("DELETE FROM "+nameof(TablePlayer)+" WHERE playername=?", playername);
 	   	}
 		
 		// -------------------------------------------------------------------------------

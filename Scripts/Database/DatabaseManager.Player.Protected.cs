@@ -21,52 +21,52 @@ namespace Wovencode.Database
 		// PlayerSetOnline
 		// Sets the player online (1) or offline (0) and updates last login time
 		// -------------------------------------------------------------------------------
-		protected void PlayerSetOnline(string _name, int action=1)
+		protected void PlayerSetOnline(string playername, int action=1)
 		{
-			Execute("UPDATE "+nameof(TablePlayer)+" SET online=?, lastlogin=? WHERE name=?", action, DateTime.UtcNow, _name);
+			Execute("UPDATE "+nameof(TablePlayer)+" SET online=?, lastlogin=? WHERE playername=?", action, DateTime.UtcNow, playername);
 		}
 		
 		// -------------------------------------------------------------------------------
 		// PlayerSetDeleted
 		// Sets the player to deleted (1) or undeletes it (0)
 		// -------------------------------------------------------------------------------
-		protected void PlayerSetDeleted(string _name, int action=1)
+		protected void PlayerSetDeleted(string playername, int action=1)
 		{
-			Execute("UPDATE "+nameof(TablePlayer)+" SET deleted=? WHERE name=?", action, _name);
+			Execute("UPDATE "+nameof(TablePlayer)+" SET deleted=? WHERE playername=?", action, playername);
 		}
 		
 		// -------------------------------------------------------------------------------
 		// PlayerSetBanned
 		// Bans (1) or unbans (0) the user
 		// -------------------------------------------------------------------------------
-		protected void PlayerSetBanned(string _name, int action=1)
+		protected void PlayerSetBanned(string playername, int action=1)
 		{
-			Execute("UPDATE "+nameof(TablePlayer)+" SET banned=? WHERE name=?", action, _name);
+			Execute("UPDATE "+nameof(TablePlayer)+" SET banned=? WHERE playername=?", action, playername);
 		}
 		
 		// -------------------------------------------------------------------------------
 		// DeleteDataPlayer
 		// Permanently deletes the player and all of its data (hard delete)
 		// -------------------------------------------------------------------------------
-		protected void DeleteDataPlayer(string _name)
+		protected void DeleteDataPlayer(string playername)
 		{			
-			this.InvokeInstanceDevExtMethods(nameof(DeleteDataPlayer), _name);
+			this.InvokeInstanceDevExtMethods(nameof(DeleteDataPlayer), playername);
 		}
 		
 		// -------------------------------------------------------------------------------
 		// PlayerValid
 		// -------------------------------------------------------------------------------
-		public bool PlayerValid(string name, string username)
+		public bool PlayerValid(string playername, string username)
 		{
-			return FindWithQuery<TablePlayer>("SELECT * FROM "+nameof(TablePlayer)+" WHERE name=? AND username=? AND banned=0 AND deleted=0", name, username) != null;
+			return FindWithQuery<TablePlayer>("SELECT * FROM "+nameof(TablePlayer)+" WHERE playername=? AND username=? AND banned=0 AND deleted=0", playername, username) != null;
 		}
 		
 		// -------------------------------------------------------------------------------
 		// PlayerExists
 		// -------------------------------------------------------------------------------
-		public bool PlayerExists(string name, string username)
+		public bool PlayerExists(string playername, string username)
 		{
-			return FindWithQuery<TablePlayer>("SELECT * FROM "+nameof(TablePlayer)+" WHERE name=? AND username=?", name, username) != null;
+			return FindWithQuery<TablePlayer>("SELECT * FROM "+nameof(TablePlayer)+" WHERE playername=? AND username=?", playername, username) != null;
 		}
 		
 		// -------------------------------------------------------------------------------

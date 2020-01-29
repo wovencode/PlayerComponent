@@ -22,17 +22,17 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		// UserValid
 		// -------------------------------------------------------------------------------
-		protected bool UserValid(string name, string password)
+		protected bool UserValid(string username, string password)
 		{
-			return FindWithQuery<TableUser>("SELECT * FROM "+nameof(TableUser)+" WHERE name=? AND password=? AND banned=0 AND deleted=0", name, password) != null;
+			return FindWithQuery<TableUser>("SELECT * FROM "+nameof(TableUser)+" WHERE username=? AND password=? AND banned=0 AND deleted=0", username, password) != null;
 		}
 		
 		// -------------------------------------------------------------------------------
 		// UserExists
 		// -------------------------------------------------------------------------------
-		protected bool UserExists(string name)
+		protected bool UserExists(string username)
 		{
-			return FindWithQuery<TableUser>("SELECT * FROM "+nameof(TableUser)+" WHERE name=?", name) != null;
+			return FindWithQuery<TableUser>("SELECT * FROM "+nameof(TableUser)+" WHERE username=?", username) != null;
 		}
 		
 		// -------------------------------------------------------------------------------
@@ -40,61 +40,62 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		protected void UserRegister(string userName, string userPassword, string userEmail, string userDeviceid)
 		{
-			Insert(new TableUser{ name=userName, password=userPassword, email=userEmail, deviceid=userDeviceid, created=DateTime.UtcNow, lastlogin=DateTime.Now});
+			Insert(new TableUser{ username=userName, password=userPassword, email=userEmail, deviceid=userDeviceid, created=DateTime.UtcNow, lastlogin=DateTime.Now});
 		}
 		
 		// -------------------------------------------------------------------------------
 		// UserChangePassword
 		// -------------------------------------------------------------------------------
-		protected void UserChangePassword(string name, string oldpassword, string newpassword)
+		protected void UserChangePassword(string username, string oldpassword, string newpassword)
 		{
-			Execute("UPDATE "+nameof(TableUser)+" SET password=? WHERE name=? AND password=?", newpassword, name, oldpassword);
+			Execute("UPDATE "+nameof(TableUser)+" SET password=? WHERE username=? AND password=?", newpassword, username, oldpassword);
 		}
 		
 		// -------------------------------------------------------------------------------
 		// UserSetOnline
 		// Sets the user online (1) or offline (0) and updates last login time
 		// -------------------------------------------------------------------------------
-		protected void UserSetOnline(string name, int action=1)
+		protected void UserSetOnline(string username, int action=1)
 		{
-			Execute("UPDATE "+nameof(TableUser)+" SET online=?, lastlogin=? WHERE name=?", action, DateTime.UtcNow, name);
+			Execute("UPDATE "+nameof(TableUser)+" SET online=?, lastlogin=? WHERE username=?", action, DateTime.UtcNow, username);
 		}
 		
 		// -------------------------------------------------------------------------------
 		// UserSetDeleted
 		// Sets the user to deleted (1) or undeletes it (0)
 		// -------------------------------------------------------------------------------
-		protected void UserSetDeleted(string name, int action=1)
+		protected void UserSetDeleted(string username, int action=1)
 		{
-			Execute("UPDATE "+nameof(TableUser)+" SET deleted=? WHERE name=?", action, name);
+			Execute("UPDATE "+nameof(TableUser)+" SET deleted=? WHERE username=?", action, username);
 		}
 		
 		// -------------------------------------------------------------------------------
 		// UserSetBanned
 		// Bans (1) or unbans (0) the user
 		// -------------------------------------------------------------------------------
-		protected void UserSetBanned(string name, int action=1)
+		protected void UserSetBanned(string username, int action=1)
 		{
-			Execute("UPDATE "+nameof(TableUser)+" SET banned=? WHERE name=?", action, name);
+			Execute("UPDATE "+nameof(TableUser)+" SET banned=? WHERE username=?", action, username);
 		}
 		
 		// -------------------------------------------------------------------------------
-		// DeleteDataUser
+		// DeleteUser
 		// Permanently deletes the user and all of its data (hard delete)
 		// -------------------------------------------------------------------------------
-		protected void DeleteDataUser(string name)
+		[DevExtMethods("DeleteUser")]
+		protected void DeleteUser(string username)
 		{			
-			this.InvokeInstanceDevExtMethods("DeleteDataPlayer", name); 		// delete player data too
-			this.InvokeInstanceDevExtMethods(nameof(DeleteDataUser), name);
+			this.InvokeInstanceDevExtMethods("DeleteDataPlayer", username); 		// delete player data too
+			this.InvokeInstanceDevExtMethods("DeleteDataUser", username);
 		}
 		
 		// -------------------------------------------------------------------------------
 		// UserSetConfirmed
 		// Sets the user to confirmed (1) or unconfirms it (0)
 		// -------------------------------------------------------------------------------
-		protected void UserSetConfirmed(string name, int action=1)
+		protected void UserSetConfirmed(string username, int action=1)
 		{
-			Execute("UPDATE "+nameof(TableUser)+" SET confirmed=? WHERE name=?", action, name);
+			Execute("UPDATE "+nameof(TableUser)+" SET confirmed=? WHERE username=?", action, username);
 		}
 		
 		// -------------------------------------------------------------------------------

@@ -22,7 +22,7 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		public string GetPlayerPrefabName(string playername)
 		{
-			return FindWithQuery<TablePlayer>("SELECT * FROM "+nameof(TablePlayer)+" WHERE name=?", playername).prefab;
+			return FindWithQuery<TablePlayer>("SELECT * FROM "+nameof(TablePlayer)+" WHERE playername=?", playername).prefab;
 		}
 		
 		// ============================== PUBLIC METHODS =================================

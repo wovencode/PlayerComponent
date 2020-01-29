@@ -24,9 +24,12 @@ namespace Wovencode.Database
 		{
 
 			List<TableUser> users = Query<TableUser>("SELECT * FROM "+nameof(TableUser)+" WHERE deleted=1");
-
+			
+			if (users == null)
+				return;
+			
 			foreach (TableUser user in users)
-				this.InvokeInstanceDevExtMethods("DeleteDataUser", user.name);
+				this.InvokeInstanceDevExtMethods("DeleteUser", user.username);
 			
 			if (users.Count > 0)
 				debug.Log("[DatabaseManager] Pruned " + users.Count + " inactive user(s)");
