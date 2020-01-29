@@ -127,9 +127,13 @@ namespace Wovencode.Network
         	
         	foreach (GameObject prefab in spawnPrefabs)
         	{
+
+        		if (prefab == null) continue;
+        		
             	PlayerComponent player = prefab.GetComponent<PlayerComponent>();
             	if (player != null)
                		_playerPrefabs.Add(prefab);
+               		
         	}
         	
     	}
