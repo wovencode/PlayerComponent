@@ -28,8 +28,6 @@ namespace Wovencode {
 		// no need to sync, can be done individually if required
 		public TablePlayer tablePlayer = new TablePlayer();
 		
-		public NavMeshAgent agent;
-		
 		Camera mainCamera;
 		
 		// -------------------------------------------------------------------------------
@@ -45,7 +43,7 @@ namespace Wovencode {
 		// -------------------------------------------------------------------------------
 		public override void OnStartLocalPlayer()
     	{
-    		agent = GetComponent<NavMeshAgent>();
+    		base.OnStartLocalPlayer();
     		
         	mainCamera = Camera.main;
         	mainCamera.GetComponent<FollowCameraControls>().target = this.transform;

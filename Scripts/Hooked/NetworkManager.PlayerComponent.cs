@@ -98,7 +98,7 @@ namespace Wovencode.Network
 			if (!NavMesh.SamplePosition(player.transform.position, out NavMeshHit hit, 0.1f, NavMesh.AllAreas))
 				transform = GetStartPosition(player);
 				
-			player.GetComponent<NavMeshAgent>().Warp(transform.position);
+			player.GetComponent<PlayerComponent>().Warp(transform.position);
 			
 		}
 		

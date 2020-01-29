@@ -29,7 +29,7 @@ namespace Wovencode.Database
 		public bool online 			{ get; set; }
 		public DateTime lastsaved 	{ get; set; }
 		public int token			{ get; set; }
-					
+		
 		public string prefab		{ get; set; }
 		public float x 				{ get; set; }
 		public float y 				{ get; set; }
@@ -75,3 +75,5 @@ namespace Wovencode.Database
 	}
 
 }
+
+// =======================================================================================
