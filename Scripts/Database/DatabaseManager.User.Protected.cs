@@ -43,9 +43,9 @@ namespace Wovencode.Database
 		// -------------------------------------------------------------------------------
 		// UserRegister
 		// -------------------------------------------------------------------------------
-		protected void UserRegister(string name, string password, string email, string deviceid)
+		protected void UserRegister(string userName, string userPassword, string userEmail, string userDeviceid)
 		{
-			Insert(new TableUser{ name=name, password=password, email=email, deviceid=deviceid, created=DateTime.UtcNow, lastlogin=DateTime.Now, banned=false});
+			Insert(new TableUser{ name=userName, password=userPassword, email=userEmail, deviceid=userDeviceid, created=DateTime.UtcNow, lastlogin=DateTime.Now});
 		}
 		
 		// -------------------------------------------------------------------------------
